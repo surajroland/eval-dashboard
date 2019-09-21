@@ -138,7 +138,7 @@
               <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
             </div>
             <div class="card-body">
-              <div id="tab1" class="table-responsive">
+              <div id="table-container" class="table-responsive">
                   
               </div>
             </div>
@@ -207,48 +207,23 @@
 
   <!-- Page level custom scripts -->
   <script src="js/demo/datatables-demo.js"></script>
-  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script type="text/javascript" src="js/jquery.csv.min.js"></script>
+  <script type="text/javascript" src="js/csv_to_html_table.js"></script>
   <script type="text/javascript"charset="utf-8">
-      d3.text("table.csv", function(data) {
-          var parsedCSV = d3.csv.parseRows(data);
-          tab_wrapper = d3.select("#tab1").append("div").attr("id", "dataTable_wrapper").attr("class", "dataTables_wrapper dt-bootstrap4")
-          row1 = tab_wrapper.append("div").attr("class", "row")
-          row1_col1 = row1.append("div").attr("class", "col-sm-12 col-md-6")
-          label = row1_col1.append("div").attr("id", "dataTable_length").attr("class", "dataTables_length").append("label")
-
-          label = label.html("entries ")
-          select = label.append("select").attr("name", "dataTable_length").attr("aria-controls", "dataTable").attr("class","custom-select custom-select-sm form-control form-control-sm")
-          select.append("option").attr("value","10").text("10")
-          select.append("option").attr("value","10").text("25")
-          select.append("option").attr("value","10").text("50")
-          select.append("option").attr("value","10").text("100")
-          
-
-          row1_col2 = row1.append("div").attr("class", "col-sm-12 col-md-6")
-          filter = row1_col2.append("div").attr("id", "dataTable_filter").attr("class", "dataTables_filter")
-          filter_label = filter.append("label")
-          filter_label.text("Search:")
-          filter_label.append("input").attr("type", "search").attr("class", "form-control form-control-sm").attr("aria-controls", "dataTable")    
-              
-          row2 = tab_wrapper.append("div").attr("class", "row")
-          row2_col1 = row2.append("div").attr("class", "col-sm-12")
-          
-          tab = row2_col1.append("table")
-                             .attr("class", "table table-bordered")
-                             .attr("id", "dataTable")
-                             .attr("width","100%")
-                             .attr("cellspacing","0")
-                             .attr("role", "grid")
-                             .attr("aria-describedby", "dataTable_info")
-                             .attr("style", "width: 100%;")
-                             .selectAll("tr")
-                             .data(parsedCSV).enter()
-                             .append("tr")
-                             .selectAll("td")
-                             .data(function(d) { return d; }).enter()
-                             .append("td")
-                             .text(function(d) { return d; });
-      });
+    function format_link(link){
+      if (link)
+        return "<a href='" + link + "' target='_blank'>" + link + "</a>";
+      else
+        return "";
+    }
+    CsvToHtmlTable.init({
+      csv_path: 'table.csv',
+      element: 'table-container', 
+      allow_download: true,
+      csv_options: {separator: ',', delimiter: '"'},
+      datatables_options: {"paging": false},
+      custom_formatting: [[4, format_link]]
+    });
   </script>
 
 </body>
