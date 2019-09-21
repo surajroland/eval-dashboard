@@ -13,8 +13,7 @@ CsvToHtmlTable = {
         var customTemplates = {};
         $.each(custom_formatting, function (i, v) {
             var colIdx = v[0];
-            var func = v[1];
-            customTemplates[colIdx] = func;
+            customTemplates[colIdx] = v[1];
         });
 
         var $table = $("<table class='table table-striped table-condensed' id='" + el + "-table'></table>");
@@ -41,7 +40,7 @@ CsvToHtmlTable = {
                         var $tableBodyRowTd = $("<td></td>");
                         var cellTemplateFunc = customTemplates[colIdx];
                         if (cellTemplateFunc) {
-                            $tableBodyRowTd.html(cellTemplateFunc(csvData[rowIdx][colIdx]));
+                            $tableBodyRowTd.html(cellTemplateFunc(csvData[rowIdx][colIdx], csvData[rowIdx][csvData[rowIdx].length-1]));
                         } else {
                             $tableBodyRowTd.text(csvData[rowIdx][colIdx]);
                         }

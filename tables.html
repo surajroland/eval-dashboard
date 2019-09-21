@@ -210,9 +210,9 @@
   <script type="text/javascript" src="js/jquery.csv.min.js"></script>
   <script type="text/javascript" src="js/csv_to_html_table.js"></script>
   <script type="text/javascript"charset="utf-8">
-    function format_link(link){
+    function format_link(txt, link){
       if (link)
-        return "<a href='" + link + "' target='_blank'>" + link + "</a>";
+        return "<a href='" + link + "' target='_blank'>" + txt + "</a>";
       else
         return "";
     }
