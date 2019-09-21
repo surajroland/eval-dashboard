@@ -3,6 +3,7 @@ var CsvToHtmlTable = CsvToHtmlTable || {};
 CsvToHtmlTable = {
     init: function (options) {
         options = options || {};
+        var num_of_csv_data_cols = options.num_of_csv_data_cols;
         var csv_path = options.csv_path || "";
         var el = options.element || "table-container";
         var allow_download = options.allow_download || false;
@@ -26,7 +27,7 @@ CsvToHtmlTable = {
                 var $tableHead = $("<thead></thead>");
                 var csvHeaderRow = csvData[0];
                 var $tableHeadRow = $("<tr></tr>");
-                for (var headerIdx = 0; headerIdx < csvHeaderRow.length; headerIdx++) {
+                for (var headerIdx = 0; headerIdx < Math.min(num_of_csv_data_cols, csvHeaderRow.length); headerIdx++) {
                     $tableHeadRow.append($("<th></th>").text(csvHeaderRow[headerIdx]));
                 }
                 $tableHead.append($tableHeadRow);
@@ -36,7 +37,7 @@ CsvToHtmlTable = {
 
                 for (var rowIdx = 1; rowIdx < csvData.length; rowIdx++) {
                     var $tableBodyRow = $("<tr></tr>");
-                    for (var colIdx = 0; colIdx < csvData[rowIdx].length; colIdx++) {
+                    for (var colIdx = 0; colIdx < Math.min(num_of_csv_data_cols, csvData[rowIdx].length); colIdx++) {
                         var $tableBodyRowTd = $("<td></td>");
                         var cellTemplateFunc = customTemplates[colIdx];
                         if (cellTemplateFunc) {
