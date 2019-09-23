@@ -44,39 +44,39 @@ function browserSyncReload(done) {
 
 // Clean utils
 function clean() {
-  return del(["./utils/"]);
+  return del(["./js/"]);
 }
 
 // Bring third party dependencies from node_modules into utils directory
 function modules() {
   // Bootstrap JS
   var bootstrapJS = gulp.src('./node_modules/bootstrap/dist/js/*')
-    .pipe(gulp.dest('./utils/bootstrap/js'));
+    .pipe(gulp.dest('./js/bootstrap/js'));
   // Bootstrap SCSS
   var bootstrapSCSS = gulp.src('./node_modules/bootstrap/scss/**/*')
-    .pipe(gulp.dest('./utils/bootstrap/scss'));
+    .pipe(gulp.dest('./js/bootstrap/scss'));
   // ChartJS
   var chartJS = gulp.src('./node_modules/chart.js/dist/*.js')
-    .pipe(gulp.dest('./utils/chart.js'));
+    .pipe(gulp.dest('./js/chart.js'));
   // dataTables
   var dataTables = gulp.src([
       './node_modules/datatables.net/js/*.js',
       './node_modules/datatables.net-bs4/js/*.js',
       './node_modules/datatables.net-bs4/css/*.css'
     ])
-    .pipe(gulp.dest('./utils/datatables'));
+    .pipe(gulp.dest('./js/datatables'));
   // Font Awesome
   var fontAwesome = gulp.src('./node_modules/@fortawesome/**/*')
     .pipe(gulp.dest('./utils'));
   // jQuery Easing
   var jqueryEasing = gulp.src('./node_modules/jquery.easing/*.js')
-    .pipe(gulp.dest('./utils/jquery-easing'));
+    .pipe(gulp.dest('./js/jquery-easing'));
   // jQuery
   var jquery = gulp.src([
       './node_modules/jquery/dist/*',
       '!./node_modules/jquery/dist/core.js'
     ])
-    .pipe(gulp.dest('./utils/jquery'));
+    .pipe(gulp.dest('./js/jquery'));
   return merge(bootstrapJS, bootstrapSCSS, chartJS, dataTables, fontAwesome, jquery, jqueryEasing);
 }
 
