@@ -209,6 +209,14 @@
   <script type="text/javascript" src="js/jquery.csv.min.js"></script>
   <script type="text/javascript" src="js/csv_to_html_table.js"></script>
   <script type="text/javascript"charset="utf-8">
+    var parsedUrl = new URL(window.location.href);
+    var eval_report1 = parsedUrl.searchParams.get("report_id1")
+    var eval_report2 = parsedUrl.searchParams.get("report_id2")
+    String.prototype.format = function(dict) {
+      return this.replace(/{(\w+)}/g, function(match, key) {
+        return typeof dict[key] !== 'undefined' ? dict[key]: match;
+      });
+    };
     function format_link(txt, link){
       if (link)
         return "<a href='" + link + "' target='_blank'>" + txt + "</a>";
@@ -216,7 +224,7 @@
         return "";
     }
     CsvToHtmlTable.init({
-      csv_path: 'https://raw.githubusercontent.com/surajroland/eval-dashboard/gh-pages/table.csv',
+      csv_path: 'reports/{report_id}/results1.csv'.format({report_id: eval_report1}),
       num_of_csv_data_cols: 6,
       element: 'table1', 
       allow_download: false,
