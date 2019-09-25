@@ -212,6 +212,7 @@
     var parsedUrl = new URL(window.location.href);
     var table = parsedUrl.searchParams.get("eval_id")
     var table_width = parsedUrl.searchParams.get("table_width")
+    table_width = (table_width == null) ? 1000 : table_width;
     String.prototype.format = function(dict) {
       return this.replace(/{(\w+)}/g, function(match, key) {
         return typeof dict[key] !== 'undefined' ? dict[key]: match;
