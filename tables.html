@@ -111,7 +111,7 @@
 
       <!-- Nav Item - Tables -->
       <li class="nav-item active">
-        <a class="nav-link" href="tables.html?report_id1=1">
+        <a class="nav-link" href="tables.html?eval_id=1&&table_width=4">
           <i class="fas fa-fw fa-table"></i>
           <span>Tables</span></a>
       </li>
@@ -138,7 +138,7 @@
               <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
             </div>
             <div class="card-body">
-              <div id="table1" class="table-responsive">
+              <div id="table" class="table-responsive">
                   
               </div>
             </div>
@@ -210,8 +210,8 @@
   <script type="text/javascript" src="js/csv_to_html_table.js"></script>
   <script type="text/javascript"charset="utf-8">
     var parsedUrl = new URL(window.location.href);
-    var eval_report1 = parsedUrl.searchParams.get("report_id1")
-    var eval_report2 = parsedUrl.searchParams.get("report_id2")
+    var table = parsedUrl.searchParams.get("eval_id")
+    var table_width = parsedUrl.searchParams.get("table_width")
     String.prototype.format = function(dict) {
       return this.replace(/{(\w+)}/g, function(match, key) {
         return typeof dict[key] !== 'undefined' ? dict[key]: match;
@@ -224,9 +224,9 @@
         return "";
     }
     CsvToHtmlTable.init({
-      csv_path: 'reports/{report_id}/results1.csv'.format({report_id: eval_report1}),
-      num_of_csv_data_cols: 6,
-      element: 'table1', 
+      csv_path: 'reports/{table_id}/results1.csv'.format({table_id: table}),
+      num_of_csv_data_cols: parseInt(table_width, 10),
+      element: 'table', 
       allow_download: false,
       csv_options: {separator: ',', delimiter: '"'},
       datatables_options: {"paging": true},
